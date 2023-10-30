@@ -23,17 +23,12 @@ func ClearScreen() {
 
 func PrintTodo(db_size int, Version string) {
 	PrintCyan("\n<_________________ PWM v" + Version + " __________________>\n\n")
-
 	AddBrackets("add")
-	AddBrackets("update")
+	AddBrackets("done")
 	AddBrackets("delete")
 	AddBrackets("q")
-	PrintGray("\n\n")
-	
-
 	PrintGreen("\n\ndatabase")
 	AddBrackets(strconv.Itoa(db_size))
-
 }
 
 func AddBrackets(name string) {
@@ -43,13 +38,21 @@ func AddBrackets(name string) {
 }
 
 func PrintTasks() {
+	PrintGray("\n\n")
 	for _, value := range global.DB {
-		PrintCyan(strconv.Itoa(value.ID) + ". ")
-		PrintCyan(value.DATE + " ")
-		PrintCyan(value.TASK)
-		
-		
-		PrintCyan("\n")
-
+		if !value.COMPLETE{
+			PrintRed(strconv.Itoa(value.ID) + ". ")
+			PrintRed(value.DATE + " ")
+			PrintGreen(value.TASK + " ")
+			PrintYellow(strconv.FormatBool(value.COMPLETE))
+			PrintCyan("\n")
+		}
 	}
+}
+
+func PrintTask(index int) {
+	PrintYellow(strconv.Itoa(global.DB[index].ID) + ". ")
+	PrintYellow(global.DB[index].DATE + " ")
+	PrintYellow(global.DB[index].TASK + " ")
+	PrintYellow(strconv.FormatBool(global.DB[index].COMPLETE))
 }

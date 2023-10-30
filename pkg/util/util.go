@@ -57,3 +57,26 @@ func GetTaskArray(body []byte) []global.Todolist {
 
 	return TodolistStruct
 }
+
+func SearchIndexByID(id int) int {
+
+	index := -1
+
+	for key, website := range global.DB {
+		if id == website.ID {
+			index = key
+		}
+	}
+
+	return index
+}
+
+func Confirm() bool {
+
+	user_input := Prompt("\n\nThis One?: ")
+
+	if user_input == "n" || user_input == "no" {
+		return false
+	}
+	return true
+}

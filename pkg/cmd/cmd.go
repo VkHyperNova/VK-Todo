@@ -27,7 +27,7 @@ func Cmd() {
 		case "add":
 			database.Create()
 			Cmd()
-		case "update":
+		case "done":
 			database.Update(id)
 			Cmd()
 		case "delete":
