@@ -1,13 +1,21 @@
 package database
 
 import (
+	"bufio"
+	"os"
+	"strings"
 	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 	"vk-todo/pkg/util"
 )
 
 func Create() {
-	NewTaskString := util.Prompt("Task: ")
+	print.PrintCyan("Task: ")
+	scanner := bufio.NewScanner(os.Stdin)
+    scanner.Scan()
+	NewTaskString := scanner.Text()
+	NewTaskString = strings.TrimSpace(NewTaskString)
+	
 	NewTask := util.CompileTask(NewTaskString)
 	global.DB = append(global.DB, NewTask)
 	SaveDatabase()

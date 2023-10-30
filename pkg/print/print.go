@@ -44,7 +44,7 @@ func PrintTasks() {
 			PrintGreen(value.TASK + " ")
 			// PrintYellow(strconv.FormatBool(value.COMPLETE))
 			PrintCyan("\n")
-		}
+		} 
 	}
 }
 
