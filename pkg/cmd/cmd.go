@@ -3,18 +3,22 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"vk-todo/pkg/database"
 	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
-	"vk-todo/pkg/database"
 )
 
 func Cmd() {
-
+	
 	global.DB = database.LoadDatabase()
+
+	print.PrintTodo(global.Version)
 
 	print.PrintTasks()
 
-	print.PrintTodo(len(global.DB), global.Version)
+	print.PrintGreen("\ndatabase")
+	print.AddBrackets(strconv.Itoa(len(global.DB)))
 
 	print.PrintCyan("=> ")
 
@@ -34,6 +38,7 @@ func Cmd() {
 			database.Delete(id)
 			Cmd()
 		case "q":
+			print.ClearScreen()
 			os.Exit(0)
 		default:
 			Cmd()

@@ -11,6 +11,7 @@ func Create() {
 	NewTask := util.CompileTask(NewTaskString)
 	global.DB = append(global.DB, NewTask)
 	SaveDatabase()
+	print.ClearScreen()
 }
 
 func Update(id int) {
@@ -32,6 +33,8 @@ func Update(id int) {
 	} else {
 		print.PrintGreen("Returning../\n\n")
 	}
+
+	print.ClearScreen()
 }
 
 func Delete(id int) {
@@ -53,4 +56,6 @@ func Delete(id int) {
 	} else {
 		print.PrintGreen("Returning../\n\n")
 	}
+
+	print.ClearScreen()
 }
