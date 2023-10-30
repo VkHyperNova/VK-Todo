@@ -15,8 +15,13 @@ func Cmd() {
 
 	print.PrintTodo(global.Version)
 
+	print.PrintCompletedTasks()
 	print.PrintTasks()
 
+	print.PrintCompletedTasksCount()
+	print.PrintTasksCount()
+
+	print.PrintCommands()
 	print.PrintGreen("\ndatabase")
 	print.AddBrackets(strconv.Itoa(len(global.DB)))
 
@@ -41,6 +46,7 @@ func Cmd() {
 			print.ClearScreen()
 			os.Exit(0)
 		default:
+			print.ClearScreen()
 			Cmd()
 		}
 	}

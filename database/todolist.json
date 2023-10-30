@@ -1,194 +1,32 @@
 [
   {
-    "id": 2,
-    "task": "2323",
+    "id": 1,
+    "task": "new task",
     "complete": true,
-    "date": "15:11 (29.10.2023)"
+    "date": "30.10.2023"
+  },
+  {
+    "id": 2,
+    "task": "another task",
+    "complete": true,
+    "date": "30.10.2023"
   },
   {
     "id": 3,
-    "task": "asdss",
+    "task": "more Task",
     "complete": true,
-    "date": "14:20 (30.10.2023)"
+    "date": "30.10.2023"
   },
   {
     "id": 4,
-    "task": "asd",
-    "complete": true,
-    "date": "14:28 (30.10.2023)"
+    "task": "new task",
+    "complete": false,
+    "date": "30.10.2023"
   },
   {
     "id": 5,
-    "task": "asd",
+    "task": "more task",
     "complete": true,
-    "date": "14:29 (30.10.2023)"
-  },
-  {
-    "id": 6,
-    "task": "asd",
-    "complete": true,
-    "date": "14:36 (30.10.2023)"
-  },
-  {
-    "id": 7,
-    "task": "sd",
-    "complete": true,
-    "date": "14:36 (30.10.2023)"
-  },
-  {
-    "id": 8,
-    "task": "asd",
-    "complete": true,
-    "date": "14:36 (30.10.2023)"
-  },
-  {
-    "id": 9,
-    "task": "asd",
-    "complete": true,
-    "date": "14:38 (30.10.2023)"
-  },
-  {
-    "id": 10,
-    "task": "new",
-    "complete": true,
-    "date": "14:39 (30.10.2023)"
-  },
-  {
-    "id": 11,
-    "task": "asdasd",
-    "complete": false,
-    "date": "14:40 (30.10.2023)"
-  },
-  {
-    "id": 12,
-    "task": "asdasda",
-    "complete": true,
-    "date": "14:40 (30.10.2023)"
-  },
-  {
-    "id": 13,
-    "task": "asd",
-    "complete": false,
-    "date": "14:46 (30.10.2023)"
-  },
-  {
-    "id": 14,
-    "task": "asd",
-    "complete": false,
-    "date": "14:46 (30.10.2023)"
-  },
-  {
-    "id": 15,
-    "task": "asdas",
-    "complete": false,
-    "date": "14:47 (30.10.2023)"
-  },
-  {
-    "id": 16,
-    "task": "asdas",
-    "complete": false,
-    "date": "14:54 (30.10.2023)"
-  },
-  {
-    "id": 17,
-    "task": "asd",
-    "complete": false,
-    "date": "14:57 (30.10.2023)"
-  },
-  {
-    "id": 18,
-    "task": "asd",
-    "complete": false,
-    "date": "14:58 (30.10.2023)"
-  },
-  {
-    "id": 19,
-    "task": "my",
-    "complete": false,
-    "date": "14:59 (30.10.2023)"
-  },
-  {
-    "id": 20,
-    "task": "ew",
-    "complete": false,
-    "date": "14:59 (30.10.2023)"
-  },
-  {
-    "id": 21,
-    "task": "ask",
-    "complete": false,
-    "date": "14:59 (30.10.2023)"
-  },
-  {
-    "id": 22,
-    "task": "q\\",
-    "complete": false,
-    "date": "15:02 (30.10.2023)"
-  },
-  {
-    "id": 23,
-    "task": "ssss",
-    "complete": false,
-    "date": "15:02 (30.10.2023)"
-  },
-  {
-    "id": 24,
-    "task": "s",
-    "complete": false,
-    "date": "15:02 (30.10.2023)"
-  },
-  {
-    "id": 25,
-    "task": "s",
-    "complete": false,
-    "date": "15:02 (30.10.2023)"
-  },
-  {
-    "id": 26,
-    "task": "sssss",
-    "complete": false,
-    "date": "15:02 (30.10.2023)"
-  },
-  {
-    "id": 28,
-    "task": "x",
-    "complete": true,
-    "date": "15:02 (30.10.2023)"
-  },
-  {
-    "id": 29,
-    "task": "pikk",
-    "complete": false,
-    "date": "15:03 (30.10.2023)"
-  },
-  {
-    "id": 30,
-    "task": "pikk",
-    "complete": false,
-    "date": "15:03 (30.10.2023)"
-  },
-  {
-    "id": 31,
-    "task": "pikk",
-    "complete": false,
-    "date": "15:03 (30.10.2023)"
-  },
-  {
-    "id": 33,
-    "task": "pikk task on see",
-    "complete": false,
-    "date": "15:10 (30.10.2023)"
-  },
-  {
-    "id": 34,
-    "task": "veel pikem",
-    "complete": false,
-    "date": "15:10 (30.10.2023)"
-  },
-  {
-    "id": 35,
-    "task": "pikk tekst tootab",
-    "complete": false,
-    "date": "15:11 (30.10.2023)"
+    "date": "30.10.2023"
   }
 ]

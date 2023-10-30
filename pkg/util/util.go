@@ -19,7 +19,7 @@ func Prompt(Question string) string {
 }
 
 func GetFormattedDate() string {
-	return time.Now().Format("15:04 (02.01.2006)")
+	return time.Now().Format("02.01.2006")
 }
 
 func InterfaceToByte(data interface{}) []byte {
@@ -80,3 +80,4 @@ func Confirm() bool {
 	}
 	return true
 }
+

@@ -4,6 +4,9 @@ var DB []Todolist
 
 const Version = "1"
 
+var CompletedTasksCount = 0
+var TaskCount = 0
+
 type Todolist struct {
 	ID       int    `json:"id"`
 	TASK     string `json:"task"`

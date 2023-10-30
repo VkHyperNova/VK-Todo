@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
+	"time"
 	"vk-todo/pkg/global"
 )
 
@@ -22,11 +23,16 @@ func ClearScreen() {
 }
 
 func PrintTodo(Version string) {
-	PrintCyan("\n<_________________ VK-TODO " + Version + " __________________>\n\n")
+	PrintCyan("\n<< VK-TODO " + Version + " >>\n")	
+}
+
+func PrintCommands() {
+	PrintCyan("\n\n<< ")
 	AddBrackets("add")
 	AddBrackets("done")
 	AddBrackets("delete")
 	AddBrackets("q")
+	PrintCyan(" >>\n")
 }
 
 func AddBrackets(name string) {
@@ -36,14 +42,34 @@ func AddBrackets(name string) {
 }
 
 func PrintTasks() {
-	PrintGray("\n\n")
+	PrintGray("\n")
+	PrintGray("Tasks\n")
 	for _, value := range global.DB {
 		if !value.COMPLETE{
-			PrintRed(strconv.Itoa(value.ID) + ". ")
-			PrintRed(value.DATE + " ")
-			PrintGreen(value.TASK + " ")
+			PrintCyan(strconv.Itoa(value.ID) + ". ")
+			// PrintRed(value.DATE + " ")
+			PrintYellow(value.TASK + " ")
 			// PrintYellow(strconv.FormatBool(value.COMPLETE))
 			PrintCyan("\n")
+			global.TaskCount += 1
+		} 
+	}
+}
+
+func PrintCompletedTasks() {
+	cMonth := time.Now().Month()
+	
+	PrintGray("\n")
+	PrintGray("Completed Tasks")
+	PrintGray("\n")
+	for _, value := range global.DB {
+		dbMonth, err := time.Parse("02.01.2006", value.DATE)
+   		HandleError(err)
+		if value.COMPLETE && cMonth == dbMonth.Month() {
+			PrintCyan(strconv.Itoa(value.ID) + ". ")
+			PrintGreen(value.TASK + " ")
+			PrintCyan("\n")
+			global.CompletedTasksCount += 1
 		} 
 	}
 }
@@ -54,3 +80,16 @@ func PrintTask(index int) {
 	PrintYellow(global.DB[index].TASK + " ")
 	PrintYellow(strconv.FormatBool(global.DB[index].COMPLETE))
 }
+
+func PrintCompletedTasksCount() {
+	PrintCyan("\n\nCompleted: ")
+	PrintGreen(strconv.Itoa(global.CompletedTasksCount))
+}
+
+func PrintTasksCount() {
+	PrintCyan("\nTasks: ")
+	PrintYellow(strconv.Itoa(global.TaskCount))
+}
+
+
+
