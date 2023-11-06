@@ -1,68 +1,86 @@
 [
   {
     "id": 1,
-    "task": "Leanr Figma",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 2,
-    "task": "Learn NeoVim",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 3,
-    "task": "PWM 4 Release",
-    "complete": true,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 4,
-    "task": "Learn Unit Tests",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 5,
-    "task": "VK Portfolio remake",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 6,
-    "task": "Learn linux",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 7,
-    "task": "Make Programming youtube videos",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 8,
-    "task": "codecrafter.io tutorials",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 9,
-    "task": "Make A VK QUOTES APP with big database",
-    "complete": false,
-    "date": "30.10.2023"
-  },
-  {
-    "id": 10,
-    "task": "new task",
+    "name": "Figma",
+    "task": "Learn box",
     "complete": false,
     "date": "06.11.2023"
   },
   {
-    "id": 11,
+    "id": 2,
+    "name": "VK-todo",
+    "task": "add functions",
+    "complete": true,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 3,
+    "name": "Learn",
+    "task": "golang docs",
+    "complete": true,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 4,
+    "name": "VK-Quotes",
+    "task": "make database",
+    "complete": true,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 5,
+    "name": "Figma",
+    "task": "Learn box2",
+    "complete": false,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 6,
+    "name": "VK-todo",
+    "task": "task1",
+    "complete": true,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 7,
+    "name": "VK-Quotes",
+    "task": "one more",
+    "complete": false,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 8,
+    "name": "Learn",
     "task": "asd",
     "complete": false,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 9,
+    "name": "VK-todo",
+    "task": "asd",
+    "complete": false,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 10,
+    "name": "ADS",
+    "task": "task 111",
+    "complete": true,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 11,
+    "name": "VK-todo",
+    "task": "asd2",
+    "complete": false,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 12,
+    "name": "ADS",
+    "task": "new",
+    "complete": true,
     "date": "06.11.2023"
   }
 ]

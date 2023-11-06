@@ -1,17 +1,17 @@
 package database
 
 import (
-	
 	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 	"vk-todo/pkg/util"
 )
 
 func Create() {
-	Task := util.GetTask()
-	NewTask := util.CompileTask(Task)
+	Name := util.GetInput("Name: ")
+	Task := util.GetInput("Task: ")
+	NewTask := util.CompileTask(Name, Task)
 	global.DB = append(global.DB, NewTask)
-	SaveDatabase()
+	SaveToDoDatabase()
 	print.ClearScreen()
 }
 
@@ -29,7 +29,7 @@ func Complete(id int) {
 
 	if confirm {
 		global.DB[index].COMPLETE = true
-		SaveDatabase()
+		SaveToDoDatabase()
 		print.PrintGreen("Task done!\n\n")
 	} else {
 		print.PrintGreen("Returning../\n\n")
@@ -50,9 +50,9 @@ func Update(id int) {
 	}
 
 	if confirm {
-		Task := util.GetTask()
+		Task := util.GetInput("Updated Task: ")
 		global.DB[index].TASK = Task
-		SaveDatabase()
+		SaveToDoDatabase()
 		print.PrintGreen("Task Updated!\n\n")
 	} else {
 		print.PrintGreen("Returning../\n\n")
@@ -76,7 +76,7 @@ func Delete(id int) {
 
 	if confirm {
 		global.DB = append(global.DB[:index], global.DB[index+1:]...)
-		SaveDatabase()
+		SaveToDoDatabase()
 		print.PrintGreen("Task deleted!\n\n")
 	} else {
 		print.PrintGreen("Returning../\n\n")

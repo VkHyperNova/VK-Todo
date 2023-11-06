@@ -5,7 +5,6 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
-	"time"
 	"vk-todo/pkg/global"
 )
 
@@ -23,7 +22,7 @@ func ClearScreen() {
 }
 
 func PrintTodo(Version string) {
-	PrintCyan("\n<< VK-TODO " + Version + " >>\n")	
+	PrintCyan("\n<< VK-TODO " + Version + " >>\n")
 }
 
 func PrintCommands() {
@@ -43,35 +42,18 @@ func AddBrackets(name string) {
 }
 
 func PrintTasks() {
-	PrintGray("\n")
-	PrintGray("Tasks\n")
-	for _, value := range global.DB {
-		if !value.COMPLETE{
-			PrintCyan(strconv.Itoa(value.ID) + ". ")
-			// PrintRed(value.DATE + " ")
-			PrintYellow(value.TASK + " ")
-			// PrintYellow(strconv.FormatBool(value.COMPLETE))
-			PrintCyan("\n")
-			global.TaskCount += 1
-		} 
-	}
-}
+	PrintCyan("\n\n<< Tasks >>\n")
 
-func PrintCompletedTasks() {
-	cMonth := time.Now().Month()
-	
-	PrintGray("\n")
-	PrintGray("Completed Tasks")
-	PrintGray("\n")
-	for _, value := range global.DB {
-		dbMonth, err := time.Parse("02.01.2006", value.DATE)
-   		HandleError(err)
-		if value.COMPLETE && cMonth == dbMonth.Month() {
-			PrintCyan(strconv.Itoa(value.ID) + ". ")
-			PrintGreen(value.TASK + " ")
-			PrintCyan("\n")
-			global.CompletedTasksCount += 1
-		} 
+	for name, count := range global.AllTaskNamesMap {
+
+		PrintGreen("\n" + name + " (" + strconv.Itoa(count) + ")\n")
+
+		for _, value := range global.DB {
+			if name == value.NAME && !value.COMPLETE {
+				AddBrackets(strconv.Itoa(value.ID))
+				PrintCyan(value.TASK + "\n")
+			}
+		}
 	}
 }
 
@@ -99,7 +81,3 @@ func PrintGoals() {
 	PrintCyan("Year Goal: ")
 	PrintCyan("Lifetime Goal: ")
 }
-
-
-
-

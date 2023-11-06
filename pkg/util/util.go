@@ -1,18 +1,18 @@
 package util
 
 import (
-	"encoding/json"
 	"bufio"
+	"encoding/json"
+	"fmt"
 	"os"
 	"strings"
-	"fmt"
 	"time"
 	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 )
 
-func GetTask() string {
-	print.PrintCyan("Task: ")
+func GetInput(inputName string) string {
+	print.PrintCyan(inputName)
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	NewTaskString := scanner.Text()
@@ -50,10 +50,11 @@ func FindUniqueID() int {
 	return global.DB[len(global.DB)-1].ID + 1
 }
 
-func CompileTask(task string) global.Todolist {
+func CompileTask(name string, task string) global.Todolist {
 
 	return global.Todolist{
 		ID:       FindUniqueID(),
+		NAME:     name,
 		TASK:     task,
 		COMPLETE: false,
 		DATE:     GetFormattedDate(),
@@ -93,3 +94,11 @@ func Confirm() bool {
 	return true
 }
 
+func Contains(arr []string, name string) bool {
+	for _, n := range arr {
+		if n == name {
+			return true
+		}
+	}
+	return false
+}

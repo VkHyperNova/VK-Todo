@@ -11,13 +11,14 @@ import (
 
 func Cmd() {
 
-	global.DB = database.LoadDatabase()
+	global.DB = database.LoadToDoDatabase()
+	database.LoadTaskNames()
+	database.CountCompletedTasks()
 
 	print.PrintTodo(global.Version)
 
 	print.PrintGoals()
-
-	print.PrintCompletedTasks()
+	
 	print.PrintTasks()
 
 	print.PrintCompletedTasksCount()

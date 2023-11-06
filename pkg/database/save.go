@@ -6,7 +6,8 @@ import (
 	"vk-todo/pkg/util"
 )
 
-func SaveDatabase() {
+func SaveToDoDatabase() {
 	DatabaseAsByte := util.InterfaceToByte(global.DB)
 	dir.WriteDataToFile("./database/todolist.json", DatabaseAsByte)
 }
+
