@@ -29,7 +29,8 @@ func PrintTodo(Version string) {
 func PrintCommands() {
 	PrintCyan("\n\n<< ")
 	AddBrackets("add")
-	AddBrackets("done")
+	AddBrackets("complete")
+	AddBrackets("update")
 	AddBrackets("delete")
 	AddBrackets("q")
 	PrintCyan(" >>\n")
@@ -90,6 +91,15 @@ func PrintTasksCount() {
 	PrintCyan("\nTasks: ")
 	PrintYellow(strconv.Itoa(global.TaskCount))
 }
+
+func PrintGoals() {
+	PrintCyan("Day Goal: ")
+	PrintCyan("Week Goal: ")
+	PrintCyan("Month Goal: ")
+	PrintCyan("Year Goal: ")
+	PrintCyan("Lifetime Goal: ")
+}
+
 
 
 

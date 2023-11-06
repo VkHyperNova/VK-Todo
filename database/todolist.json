@@ -1,32 +1,56 @@
 [
   {
     "id": 1,
-    "task": "new task",
-    "complete": true,
+    "task": "Leanr Figma",
+    "complete": false,
     "date": "30.10.2023"
   },
   {
     "id": 2,
-    "task": "another task",
-    "complete": true,
+    "task": "Learn NeoVim",
+    "complete": false,
     "date": "30.10.2023"
   },
   {
     "id": 3,
-    "task": "more Task",
+    "task": "PWM 4 Release",
     "complete": true,
     "date": "30.10.2023"
   },
   {
     "id": 4,
-    "task": "new task",
+    "task": "Learn Unit Tests",
     "complete": false,
     "date": "30.10.2023"
   },
   {
     "id": 5,
-    "task": "more task",
-    "complete": true,
+    "task": "VK Portfolio remake",
+    "complete": false,
+    "date": "30.10.2023"
+  },
+  {
+    "id": 6,
+    "task": "Learn linux",
+    "complete": false,
+    "date": "30.10.2023"
+  },
+  {
+    "id": 7,
+    "task": "Make Programming youtube videos",
+    "complete": false,
+    "date": "30.10.2023"
+  },
+  {
+    "id": 8,
+    "task": "codecrafter.io tutorials",
+    "complete": false,
+    "date": "30.10.2023"
+  },
+  {
+    "id": 9,
+    "task": "Make A VK QUOTES APP with big database",
+    "complete": false,
     "date": "30.10.2023"
   }
 ]

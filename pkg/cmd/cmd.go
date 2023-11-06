@@ -10,10 +10,12 @@ import (
 )
 
 func Cmd() {
-	
+
 	global.DB = database.LoadDatabase()
 
 	print.PrintTodo(global.Version)
+
+	print.PrintGoals()
 
 	print.PrintCompletedTasks()
 	print.PrintTasks()
@@ -36,7 +38,10 @@ func Cmd() {
 		case "add":
 			database.Create()
 			Cmd()
-		case "done":
+		case "complete":
+			database.Complete(id)
+			Cmd()
+		case "update":
 			database.Update(id)
 			Cmd()
 		case "delete":
