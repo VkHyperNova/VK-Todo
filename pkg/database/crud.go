@@ -1,22 +1,15 @@
 package database
 
 import (
-	"bufio"
-	"os"
-	"strings"
+	
 	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 	"vk-todo/pkg/util"
 )
 
 func Create() {
-	print.PrintCyan("Task: ")
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	NewTaskString := scanner.Text()
-	NewTaskString = strings.TrimSpace(NewTaskString)
-
-	NewTask := util.CompileTask(NewTaskString)
+	Task := util.GetTask()
+	NewTask := util.CompileTask(Task)
 	global.DB = append(global.DB, NewTask)
 	SaveDatabase()
 	print.ClearScreen()
@@ -57,12 +50,8 @@ func Update(id int) {
 	}
 
 	if confirm {
-		print.PrintCyan("Task: ")
-		scanner := bufio.NewScanner(os.Stdin)
-		scanner.Scan()
-		UpdatedTaskString := scanner.Text()
-		UpdatedTaskString = strings.TrimSpace(UpdatedTaskString)
-		global.DB[index].TASK = UpdatedTaskString
+		Task := util.GetTask()
+		global.DB[index].TASK = Task
 		SaveDatabase()
 		print.PrintGreen("Task Updated!\n\n")
 	} else {

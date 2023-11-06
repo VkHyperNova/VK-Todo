@@ -2,12 +2,24 @@ package util
 
 import (
 	"encoding/json"
+	"bufio"
+	"os"
+	"strings"
 	"fmt"
 	"time"
 	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 )
 
+func GetTask() string {
+	print.PrintCyan("Task: ")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	NewTaskString := scanner.Text()
+	NewTaskString = strings.TrimSpace(NewTaskString)
+
+	return NewTaskString
+}
 func Prompt(Question string) string {
 
 	print.PrintCyan(Question)
