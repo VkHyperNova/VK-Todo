@@ -71,6 +71,15 @@ func GetTaskArray(body []byte) []global.Todolist {
 	return TodolistStruct
 }
 
+func GetGoalsJson(body []byte) global.Goals {
+	GoalsStruct := global.Goals{}
+	err := json.Unmarshal(body, &GoalsStruct)
+	print.HandleError(err)
+
+	return GoalsStruct
+
+}
+
 func SearchIndexByID(id int) int {
 
 	index := -1
@@ -101,4 +110,15 @@ func Contains(arr []string, name string) bool {
 		}
 	}
 	return false
+}
+
+func CompileGoals() global.Goals {
+
+	return global.Goals{
+		DAYGOAL:      global.DayGoal,
+		WEEKGOAL:     global.WeekGoal,
+		MONTHGOAL:    global.MonthGoal,
+		YEARGOAL:     global.YearGoal,
+		LIFETIMEGOAL: global.LifeTimeGoal,
+	}
 }

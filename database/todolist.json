@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Figma",
     "task": "Learn box",
-    "complete": false,
+    "complete": true,
     "date": "06.11.2023"
   },
   {
@@ -79,6 +79,13 @@
   {
     "id": 12,
     "name": "ADS",
+    "task": "new",
+    "complete": true,
+    "date": "06.11.2023"
+  },
+  {
+    "id": 13,
+    "name": "Figma",
     "task": "new",
     "complete": true,
     "date": "06.11.2023"

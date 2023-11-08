@@ -6,7 +6,7 @@ import (
 	"vk-todo/pkg/util"
 )
 
-func Create() {
+func CreateTask() {
 	Name := util.GetInput("Name: ")
 	Task := util.GetInput("Task: ")
 	NewTask := util.CompileTask(Name, Task)
@@ -15,7 +15,7 @@ func Create() {
 	print.ClearScreen()
 }
 
-func Complete(id int) {
+func CompleteTask(id int) {
 	index := util.SearchIndexByID(id)
 
 	confirm := false
@@ -38,7 +38,7 @@ func Complete(id int) {
 	print.ClearScreen()
 }
 
-func Update(id int) {
+func UpdateTask(id int) {
 	index := util.SearchIndexByID(id)
 	confirm := false
 
@@ -62,7 +62,7 @@ func Update(id int) {
 
 }
 
-func Delete(id int) {
+func DeleteTask(id int) {
 	confirm := false
 
 	index := util.SearchIndexByID(id)

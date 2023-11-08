@@ -12,19 +12,17 @@ import (
 func Cmd() {
 
 	global.DB = database.LoadToDoDatabase()
+	database.LoadGoals()
 	database.LoadTaskNames()
-	database.CountCompletedTasks()
 
 	print.PrintTodo(global.Version)
 
 	print.PrintGoals()
-	
+	print.PrintGoalsCommands()
+
 	print.PrintTasks()
 
-	print.PrintCompletedTasksCount()
-	print.PrintTasksCount()
-
-	print.PrintCommands()
+	print.PrintTaskCommands()
 	print.PrintGreen("\ndatabase")
 	print.AddBrackets(strconv.Itoa(len(global.DB)))
 
@@ -37,16 +35,31 @@ func Cmd() {
 	for {
 		switch cmd {
 		case "add":
-			database.Create()
+			database.CreateTask()
 			Cmd()
 		case "complete":
-			database.Complete(id)
+			database.CompleteTask(id)
 			Cmd()
 		case "update":
-			database.Update(id)
+			database.UpdateTask(id)
 			Cmd()
 		case "delete":
-			database.Delete(id)
+			database.DeleteTask(id)
+			Cmd()
+		case "daygoal":
+			database.CreateDayGoal()
+			Cmd()
+		case "weekgoal":
+			database.CreateWeekGoal()
+			Cmd()
+		case "monthgoal":
+			database.CreateMonthGoal()
+			Cmd()
+		case "yeargoal":
+			database.CreateYearGoal()
+			Cmd()
+		case "lifetimegoal":
+			database.CreateLifeTimeGoal()
 			Cmd()
 		case "q":
 			print.ClearScreen()

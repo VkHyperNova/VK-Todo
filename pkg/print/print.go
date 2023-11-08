@@ -25,13 +25,23 @@ func PrintTodo(Version string) {
 	PrintCyan("\n<< VK-TODO " + Version + " >>\n")
 }
 
-func PrintCommands() {
+func PrintTaskCommands() {
 	PrintCyan("\n\n<< ")
 	AddBrackets("add")
 	AddBrackets("complete")
 	AddBrackets("update")
 	AddBrackets("delete")
 	AddBrackets("q")
+	PrintCyan(" >>\n")
+}
+
+func PrintGoalsCommands() {
+	PrintCyan("\n\n<< ")
+	AddBrackets("daygoal")
+	AddBrackets("weekgoal")
+	AddBrackets("monthgoal")
+	AddBrackets("yeargoal")
+	AddBrackets("lifetimegoal")
 	PrintCyan(" >>\n")
 }
 
@@ -64,20 +74,19 @@ func PrintTask(index int) {
 	PrintYellow(strconv.FormatBool(global.DB[index].COMPLETE))
 }
 
-func PrintCompletedTasksCount() {
-	PrintCyan("\n\nCompleted: ")
-	PrintGreen(strconv.Itoa(global.CompletedTasksCount))
-}
-
-func PrintTasksCount() {
-	PrintCyan("\nTasks: ")
-	PrintYellow(strconv.Itoa(global.TaskCount))
-}
-
 func PrintGoals() {
 	PrintCyan("Day Goal: ")
+	PrintGreen(global.DayGoal + "\n")
+
 	PrintCyan("Week Goal: ")
+	PrintGreen(global.WeekGoal + "\n")
+
 	PrintCyan("Month Goal: ")
+	PrintGreen(global.MonthGoal + "\n")
+
 	PrintCyan("Year Goal: ")
+	PrintGreen(global.YearGoal + "\n")
+
 	PrintCyan("Lifetime Goal: ")
+	PrintGreen(global.LifeTimeGoal + "\n")
 }

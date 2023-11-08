@@ -4,10 +4,16 @@ var DB []Todolist
 
 const Version = "1"
 
-var CompletedTasksCount = 0
-var TaskCount = 0
 var AllTaskNames []string
 var AllTaskNamesMap map[string]int
+
+// Goals
+
+var DayGoal string
+var WeekGoal string
+var MonthGoal string
+var YearGoal string
+var LifeTimeGoal string
 
 type Todolist struct {
 	ID       int    `json:"id"`
@@ -15,4 +21,12 @@ type Todolist struct {
 	TASK     string `json:"task"`
 	COMPLETE bool   `json:"complete"`
 	DATE     string `json:"date"`
+}
+
+type Goals struct {
+	DAYGOAL      string `json:"daygoal"`
+	WEEKGOAL     string `json:"weekgoal"`
+	MONTHGOAL    string `json:"monthgoal"`
+	YEARGOAL     string `json:"yeargoal"`
+	LIFETIMEGOAL string `json:"lifetimegoal"`
 }
