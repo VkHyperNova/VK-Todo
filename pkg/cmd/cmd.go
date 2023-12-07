@@ -103,7 +103,7 @@ func CreateLifeTimeGoal() {
 }
 
 func CreateTask(DB []database.Todolist) {
-	Name := util.GetInput("Name: ")
+	Name := strings.ToUpper(util.GetInput("Name: "))
 	Task := util.GetInput("Task: ")
 	NewTask := database.NewTask(Name, Task, DB)
 	DB = append(DB, NewTask)
