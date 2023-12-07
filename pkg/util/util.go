@@ -7,9 +7,14 @@ import (
 	"os"
 	"strings"
 	"time"
-	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 )
+
+func AddBrackets(name string) {
+	print.PrintCyan("[")
+	print.PrintYellow(name)
+	print.PrintCyan("] ")
+}
 
 func GetInput(inputName string) string {
 	print.PrintCyan(inputName)
@@ -20,6 +25,7 @@ func GetInput(inputName string) string {
 
 	return NewTaskString
 }
+
 func Prompt(Question string) string {
 
 	print.PrintCyan(Question)
@@ -41,58 +47,6 @@ func InterfaceToByte(data interface{}) []byte {
 	return dataBytes
 }
 
-func FindUniqueID() int {
-
-	if len(global.DB) == 0 {
-		return 1
-	}
-
-	return global.DB[len(global.DB)-1].ID + 1
-}
-
-func CompileTask(name string, task string) global.Todolist {
-
-	return global.Todolist{
-		ID:       FindUniqueID(),
-		NAME:     name,
-		TASK:     task,
-		COMPLETE: false,
-		DATE:     GetFormattedDate(),
-	}
-}
-
-func GetTaskArray(body []byte) []global.Todolist {
-
-	TodolistStruct := []global.Todolist{}
-
-	err := json.Unmarshal(body, &TodolistStruct)
-	print.HandleError(err)
-
-	return TodolistStruct
-}
-
-func GetGoalsJson(body []byte) global.Goals {
-	GoalsStruct := global.Goals{}
-	err := json.Unmarshal(body, &GoalsStruct)
-	print.HandleError(err)
-
-	return GoalsStruct
-
-}
-
-func SearchIndexByID(id int) int {
-
-	index := -1
-
-	for key, website := range global.DB {
-		if id == website.ID {
-			index = key
-		}
-	}
-
-	return index
-}
-
 func Confirm() bool {
 
 	user_input := Prompt("\n\nThis One?: ")
@@ -112,13 +66,4 @@ func Contains(arr []string, name string) bool {
 	return false
 }
 
-func CompileGoals() global.Goals {
 
-	return global.Goals{
-		DAYGOAL:      global.DayGoal,
-		WEEKGOAL:     global.WeekGoal,
-		MONTHGOAL:    global.MonthGoal,
-		YEARGOAL:     global.YearGoal,
-		LIFETIMEGOAL: global.LifeTimeGoal,
-	}
-}

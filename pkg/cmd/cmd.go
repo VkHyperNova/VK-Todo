@@ -4,28 +4,29 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"vk-todo/pkg/database"
-	"vk-todo/pkg/global"
 	"vk-todo/pkg/print"
 	"vk-todo/pkg/util"
 )
 
 func Cmd() {
 	print.ClearScreen()
-	global.DB = database.LoadToDo()
+	DB := database.LoadToDo()
 	database.LoadGoals()
-	GetTaskNames()
+	
 
 	print.PrintGray("============================================\n")
 	print.PrintGray("============== VK TODO v1.1 ================\n")
 	print.PrintGray("============================================\n")
 
-	print.PrintGoals()
-	print.PrintTasks()
-	print.PrintCommands([]string{"add", "complete", "update", "delete", "q"})
+	PrintGoals()
+	names := GetTaskNames(DB)
+	PrintTasks(DB, names)
+	PrintCommands([]string{"add", "complete", "update", "delete", "q"})
 
 	print.PrintGreen("\ndb")
-	print.AddBrackets(strconv.Itoa(len(global.DB)))
+	util.AddBrackets(strconv.Itoa(len(DB)))
 	print.PrintCyan("=> ")
 
 	var cmd string = ""
@@ -35,16 +36,16 @@ func Cmd() {
 	for {
 		switch cmd {
 		case "add", "a":
-			CreateTask()
+			CreateTask(DB)
 			Cmd()
 		case "complete", "c":
-			CompleteTask(id)
+			CompleteTask(id, DB)
 			Cmd()
 		case "update", "u":
-			UpdateTask(id)
+			UpdateTask(id, DB)
 			Cmd()
 		case "delete", "d":
-			DeleteTask(id)
+			DeleteTask(id, DB)
 			Cmd()
 		case "daygoal", "day":
 			CreateDayGoal()
@@ -72,58 +73,59 @@ func Cmd() {
 }
 
 func CreateDayGoal() {
-	global.DayGoal = util.GetInput("Day Goal: ")
-	Goals := util.CompileGoals()
+	database.DayGoal = util.GetInput("Day Goal: ")
+	Goals := database.NewGoals()
 	database.SaveGoals(Goals)
 }
 
 func CreateWeekGoal() {
-	global.WeekGoal = util.GetInput("Week Goal: ")
-	Goals := util.CompileGoals()
+	database.WeekGoal = util.GetInput("Week Goal: ")
+	Goals := database.NewGoals()
 	database.SaveGoals(Goals)
 }
 
 func CreateMonthGoal() {
-	global.MonthGoal = util.GetInput("Month Goal: ")
-	Goals := util.CompileGoals()
+	database.MonthGoal = util.GetInput("Month Goal: ")
+	Goals := database.NewGoals()
 	database.SaveGoals(Goals)
 }
 
 func CreateYearGoal() {
-	global.YearGoal = util.GetInput("Year Goal: ")
-	Goals := util.CompileGoals()
+	database.YearGoal = util.GetInput("Year Goal: ")
+	Goals := database.NewGoals()
 	database.SaveGoals(Goals)
 }
 
 func CreateLifeTimeGoal() {
-	global.LifeTimeGoal = util.GetInput("Life Time Goal: ")
-	Goals := util.CompileGoals()
+	database.LifeTimeGoal = util.GetInput("Life Time Goal: ")
+	Goals := database.NewGoals()
 	database.SaveGoals(Goals)
 }
 
-func CreateTask() {
+func CreateTask(DB []database.Todolist) {
 	Name := util.GetInput("Name: ")
 	Task := util.GetInput("Task: ")
-	NewTask := util.CompileTask(Name, Task)
-	global.DB = append(global.DB, NewTask)
-	database.SaveToDo()
+	NewTask := database.NewTask(Name, Task, DB)
+	DB = append(DB, NewTask)
+	database.SaveToDo(DB)
 }
 
-func CompleteTask(id int) {
-	index := util.SearchIndexByID(id)
+func CompleteTask(id int, DB []database.Todolist) {
+
+	index := database.SearchIndexByID(id, DB)
 
 	confirm := false
 
 	if index == -1 {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
-		print.PrintTask(index)
+		PrintOneTask(index, DB)
 		confirm = util.Confirm()
 	}
 
 	if confirm {
-		global.DB[index].COMPLETE = true
-		database.SaveToDo()
+		DB[index].COMPLETE = true
+		database.SaveToDo(DB)
 		print.PrintGreen("Task done!\n\n")
 	} else {
 		print.PrintGreen("Returning../\n\n")
@@ -131,21 +133,22 @@ func CompleteTask(id int) {
 
 }
 
-func UpdateTask(id int) {
-	index := util.SearchIndexByID(id)
+func UpdateTask(id int, DB []database.Todolist) {
+	index := database.SearchIndexByID(id, DB)
 	confirm := false
 
+	
 	if index == -1 {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
-		print.PrintTask(index)
+		PrintOneTask(index, DB)
 		confirm = util.Confirm()
 	}
 
 	if confirm {
 		Task := util.GetInput("Updated Task: ")
-		global.DB[index].TASK = Task
-		database.SaveToDo()
+		DB[index].TASK = Task
+		database.SaveToDo(DB)
 		print.PrintGreen("Task Updated!\n\n")
 	} else {
 		print.PrintGreen("Returning../\n\n")
@@ -153,21 +156,21 @@ func UpdateTask(id int) {
 
 }
 
-func DeleteTask(id int) {
+func DeleteTask(id int, DB []database.Todolist) {
 	confirm := false
 
-	index := util.SearchIndexByID(id)
+	index := database.SearchIndexByID(id, DB)
 
 	if index == -1 {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
-		print.PrintTask(index)
+		PrintOneTask(index, DB)
 		confirm = util.Confirm()
 	}
 
 	if confirm {
-		global.DB = append(global.DB[:index], global.DB[index+1:]...)
-		database.SaveToDo()
+		DB = append(DB[:index], DB[index+1:]...)
+		database.SaveToDo(DB)
 		print.PrintGreen("Task deleted!\n\n")
 	} else {
 		print.PrintGreen("Returning../\n\n")
@@ -175,18 +178,19 @@ func DeleteTask(id int) {
 
 }
 
-func GetTaskNames() {
-	// Get names
-	for _, value := range global.DB {
-		if !util.Contains(global.AllTaskNames, value.NAME) {
-			global.AllTaskNames = append(global.AllTaskNames, value.NAME)
+func GetTaskNames(DB []database.Todolist) map[string]int {
+
+	var TaskNames []string
+	for _, value := range DB {
+		if !util.Contains(TaskNames, value.NAME) {
+			TaskNames = append(TaskNames, value.NAME)
 		}
 	}
 
 	// Count
 	myMap := make(map[string]int)
-	for _, name := range global.AllTaskNames {
-		for _, value := range global.DB {
+	for _, name := range TaskNames {
+		for _, value := range DB {
 			if name == value.NAME && value.COMPLETE {
 				myMap[value.NAME] += 1
 			}
@@ -196,5 +200,67 @@ func GetTaskNames() {
 		}
 	}
 
-	global.AllTaskNamesMap = myMap
+	return myMap
+}
+
+
+func PrintCommands(commands []string) {
+	print.PrintCyan("\n\n<< ")
+	for _, value := range commands {
+		print.PrintCyan("[")
+		print.PrintYellow(value)
+		print.PrintCyan("] ")
+	}
+	print.PrintCyan(" >>\n")
+}
+
+
+
+func PrintTasks(DB []database.Todolist, NamesMap map[string]int) {
+	print.PrintCyan("\n\n================= Tasks ====================\n")
+
+	for name, count := range NamesMap {
+
+		print.PrintGreen("\n" + strings.ToUpper(name) + " (" + strconv.Itoa(count) + ")\n")
+
+		for _, value := range DB {
+			if name == value.NAME && !value.COMPLETE {
+				print.PrintCyan(" [")
+				print.PrintYellow(strconv.Itoa(value.ID))
+				print.PrintCyan("] ")
+				print.PrintCyan(value.TASK + "\n")
+			}
+		}
+
+		print.PrintCyan("--------------------------------------------\n")
+	}
+}
+
+func PrintOneTask(index int, DB []database.Todolist) {
+
+	print.PrintYellow(strconv.Itoa(DB[index].ID) + ". ")
+	print.PrintYellow(DB[index].TASK + " ")
+}
+
+func PrintGoals() {
+	print.PrintCyan("\n\n================= Goals ====================\n")
+
+	print.PrintCyan("Day -> ")
+	print.PrintPurple(database.DayGoal + "\n")
+	print.PrintCyan("--------------------------------------------\n")
+
+	print.PrintCyan("Week -> ")
+	print.PrintPurple(database.WeekGoal + "\n")
+	print.PrintCyan("--------------------------------------------\n")
+
+	print.PrintCyan("Month -> ")
+	print.PrintPurple(database.MonthGoal + "\n")
+	print.PrintCyan("--------------------------------------------\n")
+
+	print.PrintCyan("Year -> ")
+	print.PrintPurple(database.YearGoal + "\n")
+	print.PrintCyan("--------------------------------------------\n")
+
+	print.PrintCyan("Lifetime -> ")
+	print.PrintPurple(database.LifeTimeGoal + "\n")
 }
