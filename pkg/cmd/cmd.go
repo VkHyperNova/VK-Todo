@@ -221,7 +221,7 @@ func PrintTasks(DB []database.Todolist, NamesMap map[string]int) {
 
 	for name, count := range NamesMap {
 
-		print.PrintGreen("\n" + strings.ToUpper(name) + " (" + strconv.Itoa(count) + ")\n")
+		print.PrintGreen("\n" + name + " (" + strconv.Itoa(count) + ")\n")
 
 		for _, value := range DB {
 			if name == value.NAME && !value.COMPLETE {
