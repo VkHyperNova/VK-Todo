@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
+	"strings"
 	"vk-todo/pkg/global"
 )
 
@@ -21,27 +22,17 @@ func ClearScreen() {
 	}
 }
 
-func PrintTodo(Version string) {
+func PrintProgramName(Version string) {
 	PrintCyan("\n<< VK-TODO " + Version + " >>\n")
 }
 
-func PrintTaskCommands() {
+func PrintCommands(commands []string) {
 	PrintCyan("\n\n<< ")
-	AddBrackets("add")
-	AddBrackets("complete")
-	AddBrackets("update")
-	AddBrackets("delete")
-	AddBrackets("q")
-	PrintCyan(" >>\n")
-}
-
-func PrintGoalsCommands() {
-	PrintCyan("\n\n<< ")
-	AddBrackets("daygoal")
-	AddBrackets("weekgoal")
-	AddBrackets("monthgoal")
-	AddBrackets("yeargoal")
-	AddBrackets("lifetimegoal")
+	for _, value := range commands {
+		PrintCyan("[")
+		PrintYellow(value)
+		PrintCyan("] ")
+	}
 	PrintCyan(" >>\n")
 }
 
@@ -52,41 +43,49 @@ func AddBrackets(name string) {
 }
 
 func PrintTasks() {
-	PrintCyan("\n\n<< Tasks >>\n")
+	PrintCyan("\n\n================= Tasks ====================\n")
 
 	for name, count := range global.AllTaskNamesMap {
 
-		PrintGreen("\n" + name + " (" + strconv.Itoa(count) + ")\n")
+		PrintGreen("\n" + strings.ToUpper(name) + " (" + strconv.Itoa(count) + ")\n")
 
 		for _, value := range global.DB {
 			if name == value.NAME && !value.COMPLETE {
-				AddBrackets(strconv.Itoa(value.ID))
+				PrintCyan(" [")
+				PrintYellow(strconv.Itoa(value.ID))
+				PrintCyan("] ")
 				PrintCyan(value.TASK + "\n")
 			}
 		}
+
+		PrintCyan("--------------------------------------------\n")
 	}
 }
 
 func PrintTask(index int) {
 	PrintYellow(strconv.Itoa(global.DB[index].ID) + ". ")
-	// PrintYellow(global.DB[index].DATE + " ")
 	PrintYellow(global.DB[index].TASK + " ")
-	// PrintYellow(strconv.FormatBool(global.DB[index].COMPLETE))
 }
 
 func PrintGoals() {
-	PrintCyan("Day Goal: ")
-	PrintGreen(global.DayGoal + "\n")
+	PrintCyan("\n\n================= Goals ====================\n")
+	
+	PrintCyan("Day -> ")
+	PrintPurple(global.DayGoal + "\n")
+	PrintCyan("--------------------------------------------\n")
 
-	PrintCyan("Week Goal: ")
-	PrintGreen(global.WeekGoal + "\n")
+	PrintCyan("Week -> ")
+	PrintPurple(global.WeekGoal + "\n")
+	PrintCyan("--------------------------------------------\n")
 
-	PrintCyan("Month Goal: ")
-	PrintGreen(global.MonthGoal + "\n")
+	PrintCyan("Month -> ")
+	PrintPurple(global.MonthGoal + "\n")
+	PrintCyan("--------------------------------------------\n")
 
-	PrintCyan("Year Goal: ")
-	PrintGreen(global.YearGoal + "\n")
+	PrintCyan("Year -> ")
+	PrintPurple(global.YearGoal + "\n")
+	PrintCyan("--------------------------------------------\n")
 
-	PrintCyan("Lifetime Goal: ")
-	PrintGreen(global.LifeTimeGoal + "\n")
+	PrintCyan("Lifetime -> ")
+	PrintPurple(global.LifeTimeGoal + "\n")
 }

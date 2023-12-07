@@ -2,7 +2,7 @@ package global
 
 var DB []Todolist
 
-const Version = "1"
+
 
 var AllTaskNames []string
 var AllTaskNamesMap map[string]int
