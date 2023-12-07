@@ -12,7 +12,6 @@ func CreateTask() {
 	NewTask := util.CompileTask(Name, Task)
 	global.DB = append(global.DB, NewTask)
 	SaveToDoDatabase()
-	print.ClearScreen()
 }
 
 func CompleteTask(id int) {
@@ -35,7 +34,6 @@ func CompleteTask(id int) {
 		print.PrintGreen("Returning../\n\n")
 	}
 
-	print.ClearScreen()
 }
 
 func UpdateTask(id int) {
@@ -57,8 +55,6 @@ func UpdateTask(id int) {
 	} else {
 		print.PrintGreen("Returning../\n\n")
 	}
-
-	print.ClearScreen()
 
 }
 
@@ -82,5 +78,4 @@ func DeleteTask(id int) {
 		print.PrintGreen("Returning../\n\n")
 	}
 
-	print.ClearScreen()
 }

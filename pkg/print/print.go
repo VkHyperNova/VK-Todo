@@ -69,9 +69,9 @@ func PrintTasks() {
 
 func PrintTask(index int) {
 	PrintYellow(strconv.Itoa(global.DB[index].ID) + ". ")
-	PrintYellow(global.DB[index].DATE + " ")
+	// PrintYellow(global.DB[index].DATE + " ")
 	PrintYellow(global.DB[index].TASK + " ")
-	PrintYellow(strconv.FormatBool(global.DB[index].COMPLETE))
+	// PrintYellow(strconv.FormatBool(global.DB[index].COMPLETE))
 }
 
 func PrintGoals() {

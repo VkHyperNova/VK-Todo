@@ -10,7 +10,7 @@ import (
 )
 
 func Cmd() {
-
+	print.ClearScreen()
 	global.DB = database.LoadToDoDatabase()
 	database.LoadGoals()
 	database.LoadTaskNames()

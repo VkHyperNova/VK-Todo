@@ -21,7 +21,11 @@ func ValidateRequiredFiles() {
 	if !DoesDirectoryExist("./database/todolist.json") {
 		CreateDirectory("database")
 		WriteDataToFile("./database/todolist.json", []byte("[]"))
-		print.PrintRed("New Database Created!\n")
+	} 
+
+	if !DoesDirectoryExist("./database/goals.json") {
+		CreateDirectory("database")
+		WriteDataToFile("./database/goals.json", []byte("[]"))
 	} 
 }
 
