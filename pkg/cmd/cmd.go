@@ -14,15 +14,13 @@ func Cmd() {
 	print.ClearScreen()
 	DB := database.LoadToDo()
 	database.LoadGoals()
-	
 
 	print.PrintGray("============================================\n")
 	print.PrintGray("============== VK TODO v1.1 ================\n")
 	print.PrintGray("============================================\n")
 
 	PrintGoals()
-	names := GetTaskNames(DB)
-	PrintTasks(DB, names)
+	PrintTasks(DB)
 	PrintCommands([]string{"add", "complete", "update", "delete", "q"})
 
 	print.PrintGreen("\ndb")
@@ -137,7 +135,6 @@ func UpdateTask(id int, DB []database.Todolist) {
 	index := database.SearchIndexByID(id, DB)
 	confirm := false
 
-	
 	if index == -1 {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
@@ -178,32 +175,6 @@ func DeleteTask(id int, DB []database.Todolist) {
 
 }
 
-func GetTaskNames(DB []database.Todolist) map[string]int {
-
-	var TaskNames []string
-	for _, value := range DB {
-		if !util.Contains(TaskNames, value.NAME) {
-			TaskNames = append(TaskNames, value.NAME)
-		}
-	}
-
-	// Count
-	myMap := make(map[string]int)
-	for _, name := range TaskNames {
-		for _, value := range DB {
-			if name == value.NAME && value.COMPLETE {
-				myMap[value.NAME] += 1
-			}
-			if name == value.NAME && !value.COMPLETE {
-				myMap[value.NAME] += 0
-			}
-		}
-	}
-
-	return myMap
-}
-
-
 func PrintCommands(commands []string) {
 	print.PrintCyan("\n\n<< ")
 	for _, value := range commands {
@@ -214,30 +185,44 @@ func PrintCommands(commands []string) {
 	print.PrintCyan(" >>\n")
 }
 
-
-
-func PrintTasks(DB []database.Todolist, NamesMap map[string]int) {
+func PrintTasks(DB []database.Todolist) {
 	print.PrintCyan("\n\n================= Tasks ====================\n")
 
-	for name, count := range NamesMap {
-
-		print.PrintGreen("\n" + name + " (" + strconv.Itoa(count) + ")\n")
-
+	// Get Names
+	var Names []string
+	for _, value := range DB {
+		if !util.Contains(Names, value.NAME) {
+			Names = append(Names, value.NAME)
+		}
+	}
+	
+	
+	for _, name := range Names {
+	
+		print.PrintGreen("\n" + name + "\n")
+		count := 0
+		
 		for _, value := range DB {
-			if name == value.NAME && !value.COMPLETE {
+			if name == value.NAME && !value.COMPLETE {						
 				print.PrintCyan(" [")
 				print.PrintYellow(strconv.Itoa(value.ID))
 				print.PrintCyan("] ")
 				print.PrintCyan(value.TASK + "\n")
 			}
+
+			if name == value.NAME && value.COMPLETE {						
+				count += 1
+			}
 		}
 
-		print.PrintCyan("--------------------------------------------\n")
+		
+		print.PrintCyan("--------------------(" + strconv.Itoa(count) +")----------------------\n")
 	}
+
+	
 }
 
 func PrintOneTask(index int, DB []database.Todolist) {
-
 	print.PrintYellow(strconv.Itoa(DB[index].ID) + ". ")
 	print.PrintYellow(DB[index].TASK + " ")
 }
