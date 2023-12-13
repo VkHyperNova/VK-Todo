@@ -21,7 +21,7 @@ func Cmd() {
 
 	PrintGoals()
 	PrintTasks(DB)
-	PrintCommands([]string{"add", "complete", "update", "delete", "q"})
+	PrintCommands([]string{"add", "complete", "update", "delete", "history", "q"})
 
 	print.PrintGreen("\ndb")
 	util.AddBrackets(strconv.Itoa(len(DB)))
@@ -44,6 +44,9 @@ func Cmd() {
 			Cmd()
 		case "delete", "d":
 			DeleteTask(id, DB)
+			Cmd()
+		case "history", "h":
+			ShowHistory(DB)
 			Cmd()
 		case "daygoal", "day":
 			CreateDayGoal()
@@ -101,8 +104,18 @@ func CreateLifeTimeGoal() {
 }
 
 func CreateTask(DB []database.Todolist) {
-	Name := strings.ToUpper(util.GetInput("Name: "))
-	Task := util.GetInput("Task: ")
+
+
+	Name := strings.ToUpper(util.GetInput("Name"))
+	if Name == "Q" {
+		Cmd()
+	}
+
+	Task := util.GetInput("Task")
+	if Task == "Q" {
+		Cmd()
+	}
+		
 	NewTask := database.NewTask(Name, Task, DB)
 	DB = append(DB, NewTask)
 	database.SaveToDo(DB)
@@ -218,8 +231,6 @@ func PrintTasks(DB []database.Todolist) {
 		
 		print.PrintCyan("--------------------(" + strconv.Itoa(count) +")----------------------\n")
 	}
-
-	
 }
 
 func PrintOneTask(index int, DB []database.Todolist) {
@@ -248,4 +259,41 @@ func PrintGoals() {
 
 	print.PrintCyan("Lifetime -> ")
 	print.PrintPurple(database.LifeTimeGoal + "\n")
+}
+
+func ShowHistory(DB []database.Todolist) {
+	print.PrintGreen("\n\n============ Completed Tasks ===============\n")
+
+	// Get Names
+	var Names []string
+	for _, value := range DB {
+		if !util.Contains(Names, value.NAME) {
+			Names = append(Names, value.NAME)
+		}
+	}
+	
+	
+	for _, name := range Names {
+	
+		print.PrintGreen("\n" + name + "\n")
+		count := 0
+		
+		for _, value := range DB {
+			if name == value.NAME && value.COMPLETE {						
+				print.PrintGreen(" [")
+				print.PrintGray(strconv.Itoa(value.ID))
+				print.PrintGreen("] ")
+				print.PrintGreen(value.TASK + "\n")
+			}
+
+			if name == value.NAME && value.COMPLETE {						
+				count += 1
+			}
+		}
+
+		
+		print.PrintGreen("--------------------(" + strconv.Itoa(count) +")----------------------\n")
+	}
+	print.PrintPurple("\n << Press ENTER to continue! >>")
+	fmt.Scanln() // Press enter to continue
 }

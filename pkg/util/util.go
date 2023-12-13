@@ -16,14 +16,19 @@ func AddBrackets(name string) {
 	print.PrintCyan("] ")
 }
 
-func GetInput(inputName string) string {
-	print.PrintCyan(inputName)
+func GetInput(inputType string) string {
+	start:
+	print.PrintCyan(inputType + ": ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-	NewTaskString := scanner.Text()
-	NewTaskString = strings.TrimSpace(NewTaskString)
+	input := scanner.Text()
+	input = strings.TrimSpace(input)
+	if input == "" {
+		print.PrintRed("Please enter a " + inputType + "\n")
+		goto start
+	}
 
-	return NewTaskString
+	return input
 }
 
 func Prompt(Question string) string {
