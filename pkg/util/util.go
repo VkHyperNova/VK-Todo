@@ -31,16 +31,6 @@ func GetInput(inputType string) string {
 	return input
 }
 
-func Prompt(Question string) string {
-
-	print.PrintCyan(Question)
-
-	var user_input_string string
-	fmt.Scanln(&user_input_string)
-
-	return user_input_string
-}
-
 func GetFormattedDate() string {
 	return time.Now().Format("02.01.2006")
 }
@@ -54,7 +44,10 @@ func InterfaceToByte(data interface{}) []byte {
 
 func Confirm() bool {
 
-	user_input := Prompt("\n\nThis One?: ")
+	print.PrintYellow("\n\nThis One?: ")
+
+	var user_input string
+	fmt.Scanln(&user_input)
 
 	if user_input == "n" || user_input == "no" {
 		return false

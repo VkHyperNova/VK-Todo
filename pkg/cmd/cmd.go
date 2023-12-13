@@ -234,8 +234,13 @@ func PrintTasks(DB []database.Todolist) {
 }
 
 func PrintOneTask(index int, DB []database.Todolist) {
-	print.PrintYellow(strconv.Itoa(DB[index].ID) + ". ")
-	print.PrintYellow(DB[index].TASK + " ")
+	print.PrintCyan("\n\n================= Tasks ====================\n")
+	print.PrintGreen("\n" + DB[index].NAME + "\n")
+	print.PrintCyan(" [")
+	print.PrintYellow(strconv.Itoa(DB[index].ID))
+	print.PrintCyan("] ")
+	print.PrintCyan(DB[index].TASK + " ")
+	print.PrintCyan("\n\n--------------------------------------------\n")
 }
 
 func PrintGoals() {
