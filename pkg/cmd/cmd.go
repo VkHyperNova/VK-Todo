@@ -200,17 +200,28 @@ func PrintTasks(DB []database.Todolist) {
 	// Get Projects
 	var Projects []string
 	
+	// Uncompleted projects
 	for _, value := range DB {
 		if !util.Contains(Projects, value.NAME) && !value.COMPLETE {
 			Projects = append(Projects, value.NAME)
 		} 
 	}
 	
-	for _, projects := range DB {
-		
-		print.PrintGreen(projects.NAME + " ")
+	// Getting all project names
+	var AllProjects []string
+	for _, value := range DB {
+		if !util.Contains(AllProjects, value.NAME) {
+			AllProjects = append(AllProjects, value.NAME)
+		}
 	}
-	print.PrintCyan("\n\n================= Tasks ====================\n")
+
+	// Print all project names
+	for _, value := range AllProjects {
+        print.PrintGreen(value + " ")
+    }
+
+
+	print.PrintCyan("\n\n=========== Unfinished Tasks ===============\n")
 	for _, project := range Projects {
 		
 		print.PrintYellow("\n" + project + "\n")
