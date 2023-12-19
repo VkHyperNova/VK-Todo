@@ -105,7 +105,6 @@ func CreateLifeTimeGoal() {
 
 func CreateTask(DB []database.Todolist) {
 
-
 	Name := strings.ToUpper(util.GetInput("Name"))
 	if Name == "Q" {
 		Cmd()
@@ -115,7 +114,7 @@ func CreateTask(DB []database.Todolist) {
 	if Task == "Q" {
 		Cmd()
 	}
-		
+
 	NewTask := database.NewTask(Name, Task, DB)
 	DB = append(DB, NewTask)
 	database.SaveToDo(DB)
@@ -141,7 +140,6 @@ func CompleteTask(id int, DB []database.Todolist) {
 	} else {
 		print.PrintGreen("Returning../\n\n")
 	}
-
 }
 
 func UpdateTask(id int, DB []database.Todolist) {
@@ -163,7 +161,6 @@ func UpdateTask(id int, DB []database.Todolist) {
 	} else {
 		print.PrintGreen("Returning../\n\n")
 	}
-
 }
 
 func DeleteTask(id int, DB []database.Todolist) {
@@ -185,7 +182,6 @@ func DeleteTask(id int, DB []database.Todolist) {
 	} else {
 		print.PrintGreen("Returning../\n\n")
 	}
-
 }
 
 func PrintCommands(commands []string) {
@@ -199,37 +195,42 @@ func PrintCommands(commands []string) {
 }
 
 func PrintTasks(DB []database.Todolist) {
-	print.PrintCyan("\n\n================= Tasks ====================\n")
+	print.PrintCyan("\n\n================= Projects =================\n")
 
-	// Get Names
-	var Names []string
+	// Get Projects
+	var Projects []string
+	
 	for _, value := range DB {
-		if !util.Contains(Names, value.NAME) {
-			Names = append(Names, value.NAME)
-		}
+		if !util.Contains(Projects, value.NAME) && !value.COMPLETE {
+			Projects = append(Projects, value.NAME)
+		} 
 	}
 	
-	
-	for _, name := range Names {
-	
-		print.PrintGreen("\n" + name + "\n")
-		count := 0
+	for _, projects := range DB {
 		
+		print.PrintGreen(projects.NAME + " ")
+	}
+	print.PrintCyan("\n\n================= Tasks ====================\n")
+	for _, project := range Projects {
+		
+		print.PrintYellow("\n" + project + "\n")
+		
+		count := 0
+
 		for _, value := range DB {
-			if name == value.NAME && !value.COMPLETE {						
+			if project == value.NAME && !value.COMPLETE {
 				print.PrintCyan(" [")
 				print.PrintYellow(strconv.Itoa(value.ID))
 				print.PrintCyan("] ")
 				print.PrintCyan(value.TASK + "\n")
 			}
 
-			if name == value.NAME && value.COMPLETE {						
+			if project == value.NAME && value.COMPLETE {
 				count += 1
 			}
 		}
 
-		
-		print.PrintCyan("--------------------(" + strconv.Itoa(count) +")----------------------\n")
+		print.PrintCyan("--------------------(" + strconv.Itoa(count) + ")----------------------\n")
 	}
 }
 
@@ -276,28 +277,26 @@ func ShowHistory(DB []database.Todolist) {
 			Names = append(Names, value.NAME)
 		}
 	}
-	
-	
+
 	for _, name := range Names {
-	
+
 		print.PrintGreen("\n" + name + "\n")
 		count := 0
-		
+
 		for _, value := range DB {
-			if name == value.NAME && value.COMPLETE {						
+			if name == value.NAME && value.COMPLETE {
 				print.PrintGreen(" [")
 				print.PrintGray(strconv.Itoa(value.ID))
 				print.PrintGreen("] ")
 				print.PrintGreen(value.TASK + "\n")
 			}
 
-			if name == value.NAME && value.COMPLETE {						
+			if name == value.NAME && value.COMPLETE {
 				count += 1
 			}
 		}
 
-		
-		print.PrintGreen("--------------------(" + strconv.Itoa(count) +")----------------------\n")
+		print.PrintGreen("--------------------(" + strconv.Itoa(count) + ")----------------------\n")
 	}
 	print.PrintPurple("\n << Press ENTER to continue! >>")
 	fmt.Scanln() // Press enter to continue
