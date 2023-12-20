@@ -195,18 +195,34 @@ func PrintCommands(commands []string) {
 }
 
 func PrintTasks(DB []database.Todolist) {
-	print.PrintCyan("\n\n================= Projects =================\n")
+	print.PrintCyan("\n\n================= Projects " + strconv.Itoa(len(DB)) + " =================\n")
 
 	// Get Projects
 	var Projects []string
-	
+
+	// Count
+	CompletedCount := 0
+
+	for _, value := range DB {
+		if value.COMPLETE {
+			CompletedCount++
+		}
+	}
+	UnCompletedCount := len(DB) - CompletedCount
+	print.PrintGreen("Completed: ")
+	print.PrintGreen(strconv.Itoa(CompletedCount))
+	print.PrintCyan("/")
+	print.PrintRed(strconv.Itoa(UnCompletedCount))
+	print.PrintCyan("\n--------------------------------------------\n\n")
+
+
 	// Uncompleted projects
 	for _, value := range DB {
 		if !util.Contains(Projects, value.NAME) && !value.COMPLETE {
 			Projects = append(Projects, value.NAME)
-		} 
+		}
 	}
-	
+
 	// Getting all project names
 	var AllProjects []string
 	for _, value := range DB {
@@ -217,15 +233,14 @@ func PrintTasks(DB []database.Todolist) {
 
 	// Print all project names
 	for _, value := range AllProjects {
-        print.PrintGreen(value + " ")
-    }
-
+		print.PrintGreen(value + " ")
+	}
 
 	print.PrintCyan("\n\n=========== Unfinished Tasks ===============\n")
 	for _, project := range Projects {
-		
+
 		print.PrintYellow("\n" + project + "\n")
-		
+
 		count := 0
 
 		for _, value := range DB {
