@@ -1,33 +1,22 @@
-package dir
+package util
 
 import (
 	"os"
-	"vk-todo/pkg/print"
 )
 
 
 func WriteDataToFile(filename string, dataBytes []byte) {
 	var err = os.WriteFile(filename, dataBytes, 0644)
-	print.HandleError(err)
+	HandleError(err)
 }
 
 func ReadFile(filename string) []byte {
 	file, err := os.ReadFile(filename)
-	print.HandleError(err)
+	HandleError(err)
 	return file
 }
 
-func ValidateRequiredFiles() {
-	if !DoesDirectoryExist("./database/todolist.json") {
-		CreateDirectory("database")
-		WriteDataToFile("./database/todolist.json", []byte("[]"))
-	} 
 
-	if !DoesDirectoryExist("./database/goals.json") {
-		CreateDirectory("database")
-		WriteDataToFile("./database/goals.json", []byte("[]"))
-	} 
-}
 
 func CreateDirectory(dir_name string) {
 	_ = os.Mkdir(dir_name, 0700)

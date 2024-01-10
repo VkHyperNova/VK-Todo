@@ -5,26 +5,23 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
+	"runtime"
 	"strings"
 	"time"
-	"vk-todo/pkg/print"
 )
 
-func AddBrackets(name string) {
-	print.PrintCyan("[")
-	print.PrintYellow(name)
-	print.PrintCyan("] ")
-}
+
 
 func GetInput(inputType string) string {
-	start:
-	print.PrintCyan(inputType + ": ")
+start:
+	PrintCyan(inputType + ": ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	input := scanner.Text()
 	input = strings.TrimSpace(input)
 	if input == "" {
-		print.PrintRed("Please enter a " + inputType + "\n")
+		PrintRed("Please enter a " + inputType + "\n")
 		goto start
 	}
 
@@ -37,14 +34,14 @@ func GetFormattedDate() string {
 
 func InterfaceToByte(data interface{}) []byte {
 	dataBytes, err := json.MarshalIndent(data, "", "  ")
-	print.HandleError(err)
+	HandleError(err)
 
 	return dataBytes
 }
 
 func Confirm() bool {
 
-	print.PrintYellow("\n\nThis One?: ")
+	PrintYellow("\n\nThis One?: ")
 
 	var user_input string
 	fmt.Scanln(&user_input)
@@ -64,4 +61,15 @@ func Contains(arr []string, name string) bool {
 	return false
 }
 
+func ClearScreen() {
 
+	if runtime.GOOS == "linux" {
+		cmd := exec.Command("clear")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	} else if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd", "/c", "cls")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}
+}

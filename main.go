@@ -1,13 +1,13 @@
 package main
 
 import (
-	"vk-todo/pkg/print"
-	"vk-todo/pkg/dir"
 	"vk-todo/pkg/cmd"
+	"vk-todo/pkg/util"
+	"vk-todo/pkg/db"
 )
 
 func main() {
-	print.ClearScreen()
-	dir.ValidateRequiredFiles()
+	util.ClearScreen()
+	db.ValidateRequiredFiles()
 	cmd.Cmd()
 }
