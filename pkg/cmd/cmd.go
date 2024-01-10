@@ -111,7 +111,7 @@ func CreateTask(DB []database.Todolist) {
 	}
 
 	Task := util.GetInput("Task")
-	if Task == "Q" {
+	if Task == "q" {
 		Cmd()
 	}
 
