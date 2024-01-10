@@ -27,7 +27,7 @@ func PrintVKTODO(Version string, DATABASE []db.Todolist) {
 }
 
 func PrintTasks(DB []db.Todolist) {
-	util.PrintCyan("\n\nProjects ")
+	util.PrintCyan("\n\nTasks: ")
 	util.PrintGray(strconv.Itoa(len(DB)))
 
 	// Get Projects
@@ -63,8 +63,9 @@ func PrintTasks(DB []db.Todolist) {
 	}
 
 	// Print all project names
-	for _, value := range AllProjects {
-		util.PrintGreen(value + "; ")
+	for key, value := range AllProjects {
+		util.PrintCyan(strconv.Itoa(key + 1) + ")")
+		util.PrintGray(value + " \n")
 	}
 
 	util.PrintCyan("\n\n=========== Unfinished Tasks ===============\n")
