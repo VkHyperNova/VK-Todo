@@ -124,47 +124,32 @@ func CompleteTask(id int, DB []database.Todolist) {
 
 	index := database.SearchIndexByID(id, DB)
 
-	confirm := false
-
 	if index == -1 {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
 		PrintOneTask(index, DB)
-		confirm = util.Confirm()
-	}
-
-	if confirm {
 		DB[index].COMPLETE = true
 		database.SaveToDo(DB)
 		print.PrintGreen("Task done!\n\n")
-	} else {
-		print.PrintGreen("Returning../\n\n")
 	}
 }
 
 func UpdateTask(id int, DB []database.Todolist) {
 	index := database.SearchIndexByID(id, DB)
-	confirm := false
 
 	if index == -1 {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
 		PrintOneTask(index, DB)
-		confirm = util.Confirm()
-	}
-
-	if confirm {
 		Task := util.GetInput("Updated Task: ")
 		DB[index].TASK = Task
 		database.SaveToDo(DB)
 		print.PrintGreen("Task Updated!\n\n")
-	} else {
-		print.PrintGreen("Returning../\n\n")
 	}
 }
 
 func DeleteTask(id int, DB []database.Todolist) {
-	confirm := false
+
 
 	index := database.SearchIndexByID(id, DB)
 
@@ -172,15 +157,9 @@ func DeleteTask(id int, DB []database.Todolist) {
 		print.PrintRed("\nIndex out of range!\n")
 	} else {
 		PrintOneTask(index, DB)
-		confirm = util.Confirm()
-	}
-
-	if confirm {
 		DB = append(DB[:index], DB[index+1:]...)
 		database.SaveToDo(DB)
 		print.PrintGreen("Task deleted!\n\n")
-	} else {
-		print.PrintGreen("Returning../\n\n")
 	}
 }
 
